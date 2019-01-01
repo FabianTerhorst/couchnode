@@ -1,6 +1,6 @@
 {
   'variables': {
-    'target_arch%': 'ia32', # default for node v0.6.x
+    'target_arch%': 'x64', # default for node v0.6.x
     'node_major_version': '<!(node -e "console.log(process.versions.node.split(\'.\')[0])")'
   },
 
@@ -34,7 +34,8 @@
       'LIBCOUCHBASE_INTERNAL=1',
       'LCB_STATIC_SNAPPY=1',
       'LCB_LIBDIR=""',
-      'LCB_TRACING'
+      'LCB_TRACING',
+      'LCB_NO_SSL'
     ],
 
     'include_dirs': [
@@ -50,7 +51,6 @@
     'conditions': [
       ['OS=="win"', {
         'include_dirs': [
-          '<(node_root_dir)/deps/openssl/openssl/include',
           './',
           'contrib/win32-defs'
         ],
@@ -71,7 +71,8 @@
       'product_prefix': 'lib',
       'type': 'static_library',
       'defines': [
-        'BUILDING_CBSASL'
+        'BUILDING_CBSASL',
+	'LCB_NO_SSL'
       ],
       'sources': [
          'contrib/cbsasl/src/client.c',
@@ -80,13 +81,6 @@
          'contrib/cbsasl/src/cram-md5/hmac.c',
          'contrib/cbsasl/src/cram-md5/md5.c',
          'contrib/cbsasl/src/scram-sha/scram_utils.c'
-      ],
-      'conditions': [
-        ['OS=="win" and node_major_version<6', {
-          'defines': [
-            'LCB_NO_SSL'
-          ]
-        }]
       ]
     },
 
@@ -163,7 +157,8 @@
       'product_prefix': 'lib',
       'type': 'static_library',
       'defines': [
-        'CBSASL_STATIC'
+        'CBSASL_STATIC',
+	'LCB_NO_SSL'
       ],
       'cflags': [
         '-fno-strict-aliasing',
@@ -321,12 +316,7 @@
             'src/ssl/ssl_common.c',
             'src/ssl/ssl_e.c',
           ]
-        }],
-		    ['OS=="win" and node_major_version<6', {
-          'defines': [
-            'LCB_NO_SSL'
-          ]
-        }]
+        }]	    
       ]
     }
   ]
