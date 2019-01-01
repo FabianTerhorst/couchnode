@@ -309,14 +309,7 @@
               'plugins/io/libuv'
             ],
           },
-        }],
-		    ['OS!="win" or node_major_version>=6', {
-          'sources': [
-            'src/ssl/ssl_c.c',
-            'src/ssl/ssl_common.c',
-            'src/ssl/ssl_e.c',
-          ]
-        }]	    
+        }]    
       ]
     }
   ]
