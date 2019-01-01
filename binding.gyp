@@ -14,7 +14,8 @@
           'LIBCOUCHBASE_STATIC'
         ],
         'dependencies': [
-          'deps/lcb/libcouchbase.gyp:couchbase'
+          'deps/lcb/libcouchbase.gyp:couchbase',
+          'deps/libuv/uv.gyp:uv'
         ]
       }, {
         'conditions': [
